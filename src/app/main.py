@@ -6,6 +6,9 @@ from fastapi.templating import Jinja2Templates
 from src.rag.retrieve import retrieve
 from src.rag.generate import generate_answer
 
+import os
+import uvicorn
+
 app = FastAPI()
 templates = Jinja2Templates(directory="src/app/templates")
 
@@ -30,3 +33,7 @@ async def chat_api(request: Request):
     docs = retrieve(query, k=5)
     answer = generate_answer(query, docs)
     return {"answer": answer, "sources": [doc.metadata['doc'] for doc in docs]}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))  # Render provides PORT
+    uvicorn.run("src.app.main:app", host="0.0.0.0", port=port)
