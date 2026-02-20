@@ -1,0 +1,19 @@
+# Incident Response Procedure
+
+## 1. Detection
+Via monitoring, reports, logs.
+
+## 2. Classification
+Low to critical severity.
+
+## 3. Response Team
+Security, IT, Legal, Communications.
+
+## 4. Containment
+Isolate systems, revoke access.
+
+## 5. Recovery
+Validate before reintroducing.
+
+## 6. Post-Incident Review
+Root-cause analysis in 5 days.

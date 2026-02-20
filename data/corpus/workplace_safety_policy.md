@@ -1,0 +1,16 @@
+# Workplace Safety Policy
+
+## 1. OSHA
+OSHA standards followed.
+
+## 2. Reporting
+Report injuries immediately; near misses in 24 hours.
+
+## 3. Emergency
+Follow posted evacuation plans.
+
+## 4. Ergonomics
+Ergonomic gear available.
+
+## 5. Hazardous Materials
+Only trained personnel may handle.

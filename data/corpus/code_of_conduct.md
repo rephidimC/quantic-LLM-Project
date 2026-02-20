@@ -1,0 +1,25 @@
+# Code of Conduct
+
+## 1. Purpose
+This Code of Conduct defines ethical expectations for all employees, contractors, and vendors.
+
+## 2. Professional Behavior
+Employees must:
+- Treat colleagues, customers, and partners with respect
+- Maintain professionalism in verbal, written, and digital communication
+- Resolve conflicts constructively
+
+## 3. Conflict of Interest
+Employees must disclose situations where personal interests conflict with company interests.
+
+## 4. Confidentiality
+Sensitive information—customer data, intellectual property, financials—must not be disclosed without authorization.
+
+## 5. Workplace Conduct
+Prohibited behaviors include bullying, discrimination, weapons possession, and fraud.
+
+## 6. Substance Use
+Employees must not work while impaired by drugs or alcohol.
+
+## 7. Disciplinary Actions
+Violations may result in warnings, suspension, termination, or legal action.

@@ -1,0 +1,21 @@
+# Data Privacy and Compliance Policy
+
+## 1. Overview
+Aligned with GDPR and CCPA.
+
+## 2. PII Handling
+Collect minimum data, store securely, encrypt.
+
+## 3. Access Controls
+Need-to-know basis with periodic reviews.
+
+## 4. Retention Schedule
+- Customer: 7 years
+- Finance: 5 years
+- HR: employment + 3 years
+
+## 5. Data Rights
+Access, correction, deletion within 72 hours.
+
+## 6. Breach Response
+Notify Legal & Security immediately.

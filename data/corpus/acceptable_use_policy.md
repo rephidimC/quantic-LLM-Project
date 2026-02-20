@@ -1,0 +1,13 @@
+# Acceptable Use Policy
+
+## 1. Acceptable Activities
+Work tasks, development, limited personal use.
+
+## 2. Prohibited Activities
+Piracy, explicit sites, illegal activity, personal business.
+
+## 3. Monitoring
+Systems monitored; no expectation of privacy.
+
+## 4. Software Rules
+Only approved software allowed.

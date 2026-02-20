@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Company Policy Chat</title>
+  </head>
+  <body>
+    <h1>Company Policy Assistant</h1>
+    <input
+      type="text"
+      id="query"
+      placeholder="Ask a policy question..."
+      size="60"
+    />
+    <button onclick="sendQuery()">Send</button>
+    <div id="response"></div>
+
+    <script>
+      async function sendQuery() {
+        const query = document.getElementById("query").value;
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        });
+        const data = await res.json();
+        document.getElementById("response").innerHTML =
+          `<pre>${data.answer}</pre><b>Sources:</b> ${data.sources.join(", ")}`;
+      }
+    </script>
+  </body>
+</html>
