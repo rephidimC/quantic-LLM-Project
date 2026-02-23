@@ -4,7 +4,6 @@ chromadb
 openai
 tiktoken
 python-dotenv
-sentence-transformers
 pypdf
 beautifulsoup4
 markdown
@@ -12,3 +11,5 @@ fastapi
 uvicorn
 jinja2
 requests
+langchain_openai
+openai

@@ -15,7 +15,7 @@ This project is a Retrieval-Augmented Generation (RAG) system that answers quest
 🚀 Features
 Local document ingestion (PDF, Markdown, HTML, TXT)
 Deterministic chunking and processing (seeded)
-Local embedding using sentence-transformers
+Local embedding using langchain_openai
 Chroma vector database for storage
 RAG retrieval + generation pipeline
 FastAPI web application with:
