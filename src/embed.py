@@ -1,24 +1,19 @@
-import os
-from openai import OpenAI
-from dotenv import load_dotenv
+import numpy as np
+from sentence_transformers import SentenceTransformer
 
-load_dotenv()
+# Lightweight model suitable for CPU / Render
+MODEL_NAME = "all-MiniLM-L6-v2"
 
-# Use OFFICIAL OpenAI for embeddings
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+model = SentenceTransformer(MODEL_NAME)
 
-EMBED_MODEL = "text-embedding-3-small"
 
 def embed_chunks(chunks):
-    vectors = []
+    """
+    Convert text chunks into embedding vectors.
+    """
+    if isinstance(chunks, str):
+        chunks = [chunks]
 
-    for chunk in chunks:
-        resp = client.embeddings.create(
-            model=EMBED_MODEL,
-            input=chunk
-        )
-        vectors.append(resp.data[0].embedding)
+    vectors = model.encode(chunks, show_progress_bar=False)
 
-    return vectors
+    return [v.tolist() for v in vectors]

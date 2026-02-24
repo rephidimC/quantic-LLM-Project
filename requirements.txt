@@ -11,5 +11,5 @@ fastapi
 uvicorn
 jinja2
 requests
-langchain_openai
 openai
+sentence-transformers
