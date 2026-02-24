@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Use OFFICIAL OpenAI for embeddings
 client = OpenAI(
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-    base_url=os.getenv("OPENAI_API_BASE")
+    api_key=os.getenv("OPENAI_API_KEY")
 )
 
 EMBED_MODEL = "text-embedding-3-small"

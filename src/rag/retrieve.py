@@ -1,24 +1,18 @@
-import os
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+from src.embed import embed_chunks
 
 def get_vector_db():
-    key = os.getenv("OPENAI_API_KEY")
-    print("Loaded OPENAI_API_KEY?", bool(key))  # Debug
-    if not key:
-        raise ValueError("OPENAI_API_KEY not found in environment.")
-
-    embedding = OpenAIEmbeddings(api_key=key)
-
     vectordb = Chroma(
         collection_name="policies",
-        persist_directory="data/chroma",
-        embedding_function=embedding
+        persist_directory="data/chroma"
     )
-
     return vectordb
 
 def retrieve(query: str, k: int = 5):
     vectordb = get_vector_db()
-    docs = vectordb.similarity_search(query, k=k)
+
+    # Embed query using SAME model as documents
+    query_vector = embed_chunks([query])[0]
+
+    docs = vectordb.similarity_search_by_vector(query_vector, k=k)
     return docs
