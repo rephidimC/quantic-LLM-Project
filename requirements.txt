@@ -11,5 +11,3 @@ fastapi
 uvicorn
 jinja2
 requests
-openai
-sentence-transformers
