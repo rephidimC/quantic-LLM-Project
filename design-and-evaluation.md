@@ -87,92 +87,96 @@ Reasoning:
 
 ---
 
-## 2. Evaluation Approach and Results
+# 2. Evaluation of the RAG System
 
-### 2.1 Evaluation Approach
+## 2.1 Evaluation Methodology
 
-The evaluation focused on three pillars:
+We evaluated the RAG system using a curated set of 25 policy-related questions covering PTO, security, remote work, acceptable use, reimbursement, onboarding, HR, and conduct.
+For each question, we measured:
 
-### A. Retrieval Quality
+### A. Answer Quality
 
-Assessed using:
+1. Groundedness
+   Whether the answer is fully supported by retrieved evidence and contains _no hallucinations_.
 
-- _Manual spot-checking of nearest neighbors_
-- _Query-based relevance scoring_
-- _Edge-case questions_ to test undesired or ambiguous retrieval
+2. Citation Accuracy
+   Whether the RAG system cited the correct document chunks that actually supported its claims.
 
-We checked whether:
+3. (Optional) Gold Answer Matching
+   Not performed for this iteration.
 
-- The correct document chunks were retrieved
-- Irrelevant documents were filtered out
-- The retrieved text contained enough context to answer the question
+### B. System Metrics
 
----
+- Latency (p50, p95) from question → final answer
+- Retrieval and generation time combined
 
-### B. Answer Quality
+### C. Approach
 
-Evaluated by:
-
-- Comparing model responses to known ground truth
-- Checking for hallucinations
-- Testing varied user input phrasing for robustness
-
-We graded each answer on:
-
-1. Accuracy
-2. Completeness
-3. Clarity
-4. Citation correctness (if applicable)
+- Each question was run through the full RAG pipeline (`similarity_search()` → LLM synthesis).
+- Retrieved context and generated answers were manually inspected to assess grounding and citation accuracy.
+- Latency was automatically recorded by the evaluation script.
 
 ---
 
-### C. Latency & Performance
+## 2.2 Evaluation Results
 
-Measurements included:
+### A. Groundedness
 
-- Average retrieval time
-- Embedding generation speed
-- LLM response time
-- Total pipeline latency
+Observed groundedness: 88%
 
----
+Out of 25 evaluation questions, 22 answers were fully or mostly grounded in retrieved evidence.
+Three answers partially relied on inference rather than explicit policy text, especially in cases where the policy document did not contain the needed information (e.g., “working from another country,” data classification).
 
-## 2.2 Summary of Evaluation Results
+Common causes of reduced groundedness:
 
-### Retrieval Performance
-
-- Relevant passages were retrieved ~92% of the time
-- Short queries performed better than long, multi-part queries
-- Tuned `k` parameter from 3 → 5 for best balance
+- Questions not explicitly addressed in the uploaded policies
+- LLM attempting to “fill in gaps” when documents lacked a clear answer
+- Cross-document interpretation that introduced assumptions
 
 ---
 
-### Answer Quality
+### B. Citation Accuracy
 
-- Final responses were accurate and grounded, with hallucinations observed in only ~5–7% of stress-test cases
-- When retrieved chunks were highly relevant, LLM answers were consistently correct
-- Occasional minor hallucinations occurred when retrieval returned borderline- relevant documents
+While citation accuracy was not scored numerically, qualitative review showed:
 
----
+- Most answers cited the correct chunk(s)
+- In a few cases, the RAG system inferred rules without explicit citation (e.g., data classification), leading to citation mismatch
+- Some answers correctly stated “not found,” which improved accuracy and reduced hallucinations
 
-### Latency
-
-- Average embedding retrieval: 6–10 ms from Chroma
-- Model inference: 0.8–1.6 seconds
-- End-to-end: 1.0–2.0 seconds
+A future improvement would be assigning a percentage score for citation accuracy separately from groundedness.
 
 ---
 
-### Overall System Performance
+### C. Latency Performance
 
-The RAG system performed well for:
+Latency results from 25 queries:
 
-- Domain-constrained content
-- Repetitive or semi-structured policy-based questions
-- Short-to-medium length user queries
+| Metric      | Result |
+| ----------- | ------ |
+| p50 latency | 2.42s  |
+| p95 latency | 3.57s  |
 
-Further improvements could include:
+Interpretation:
 
-- Using hybrid search (dense + keyword)
-- Switching to a faster model for low-latency applications
-- Larger context window models for multi-chunk answers
+- The system responds within ~2.4 seconds for most questions
+- Heavier queries requiring more generation or combining multiple retrieved chunks push latency towards ~3.5 seconds
+- Performance is acceptable for small-scale internal applications
+
+---
+
+## 2.3 Observations and Interpretation
+
+### Strengths
+
+- High groundedness for well-defined policies
+- Minimal hallucinations
+- Clear and factual answers when policies exist
+- Latency suitable for real-time use
+- Retrieval performed consistently (Chroma + OpenAI embeddings worked well)
+
+### Limitations
+
+- Missing policy areas produced speculative answers
+- LLM occasionally inferred organizational norms not supported in data
+- Citation accuracy weakened when retrieved chunks lacked explicit statements
+- No hybrid search (semantic + keyword), which might improve edge-case retrieval
