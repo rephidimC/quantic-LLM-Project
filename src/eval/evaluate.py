@@ -4,11 +4,40 @@ from src.rag.generate import generate_answer
 
 # Sample evaluation questions
 questions = [
-    "How many PTO days does a full-time employee get?",
-    "What is the remote work VPN requirement?",
+    # PTO / Holidays
+    "How many PTO days does a full-time employee receive per year?",
+    "Do unused PTO days carry over to the next year?",
+    "What is the company’s paid holiday schedule?",
+    "How do employees request time off?",
+    "Is sick leave separate from PTO?",
+
+    # Remote Work / IT
+    "What is the VPN requirement for remote work?",
+    "Are employees allowed to access company systems from personal devices?",
+    "What are the rules for working from another country?",
+    "What security steps must employees follow when working remotely?",
+    "What is the password policy for company systems?",
+
+    # Security / Compliance
     "How do I report a security incident?",
-    "What are the acceptable use rules for email?",
-    "Describe parental leave policy",
+    "What should I do if I suspect phishing?",
+    "What are the acceptable use rules for email and communication tools?",
+    "Are employees permitted to install unauthorized software?",
+    "What is the data classification policy?",
+
+    # Expense / Finance
+    "What expenses are eligible for reimbursement?",
+    "How do employees submit an expense report?",
+    "What is the per-diem limit for business travel?",
+    "Are home-office expenses reimbursable?",
+    "How long does reimbursement processing take?",
+
+    # HR / Employment
+    "What is the parental leave policy?",
+    "What is the onboarding process for new employees?",
+    "How do employees update their personal information?",
+    "What is the workplace code of conduct?",
+    "What is the performance review cycle?",
 ]
 
 def eval_groundedness_and_latency():
