@@ -67,14 +67,14 @@ htmlcov/
 # =========================
 # Database
 # =========================
+# Ignore all DBs EXCEPT our Chroma store
 *.sqlite3
-
-# =========================
-# Chroma DB (LangChain)
-# =========================
-chroma/
-chromadb/
 *.db
+
+# Allow our vector DB
+!data/chroma/
+!data/chroma/**
+!data/chroma/chroma.sqlite3
 
 # =========================
 # Model files (optional)
