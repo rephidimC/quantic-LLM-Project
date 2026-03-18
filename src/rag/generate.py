@@ -43,8 +43,29 @@ Answer concisely and cite sources in [doc - chunk] format.
 """
 
 
+def format_sources(docs):
+    """
+    Extract and deduplicate sources from retrieved documents.
+    This guarantees a clean 'Sources' section independent of LLM output.
+    """
+    seen = set()
+    sources = []
+
+    for doc in docs:
+        doc_id = doc.metadata.get("doc", "unknown")
+        chunk_id = doc.metadata.get("chunk", "unknown")
+
+        key = f"{doc_id}-{chunk_id}"
+
+        if key not in seen:
+            seen.add(key)
+            sources.append(f"[{doc_id} - {chunk_id}]")
+
+    return "\n".join(sources)
+
+
 def generate_answer(query, docs):
-    """RAG generation with lazy-loaded client."""
+    """RAG generation with lazy-loaded client + structured sources."""
     client = get_client()
 
     prompt = build_prompt(query, docs)
@@ -55,4 +76,9 @@ def generate_answer(query, docs):
         max_tokens=MAX_TOKENS
     )
 
-    return resp.choices[0].message.content
+    answer = resp.choices[0].message.content.strip()
+
+    # ✅ Add clean sources section
+    sources = format_sources(docs)
+
+    return f"{answer}\n\nSources:\n{sources}"
